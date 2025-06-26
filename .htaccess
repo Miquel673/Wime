@@ -1,0 +1,15 @@
+Options -Indexes
+
+
+# Activar reescritura
+RewriteEngine On
+
+# Opcional: redireccionar a index.php todo lo que no exista (solo si usas rutas personalizadas)
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Páginas de error personalizadas
+ErrorDocument 404 /WIME/PHP/error404.php
+ErrorDocument 500 /WIME/PHP/error500.php
+# ErrorDocument 405 /WIME/PHP/error405.php

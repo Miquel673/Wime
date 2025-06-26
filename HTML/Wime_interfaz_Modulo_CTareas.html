@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WIME - Nueva Tarea</title>
+  <link rel="stylesheet" href="/Css/Wime_interfaz_Modulo_C-Tareas-Rutinas.Css">
+  <link rel="icon" type="image/png" href="/IMG/Logo_Wime.png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  
+  <header>
+        <div id="sidebar-container"></div>
+        <header>
+          <div id="sidebar-container"></div>
+  
+          <script defer>
+              // Cargar la barra lateral y conectar el evento después
+              fetch('Wime_SideBar.html')
+              .then(response => response.text())
+  
+              .then(html => {
+                  document.getElementById('sidebar-container').innerHTML = html;
+  
+                  setTimeout(() => {
+                  const bandejaBtn = document.getElementById('bandejaEntrada');
+                  if (bandejaBtn) {
+                  bandejaBtn.addEventListener('click', function (e) {
+                  e.preventDefault();
+                  mostrarNotificacion(); // ✅ llamada a la función del Script.js
+                          });
+                      }
+                  }, 100);
+              });
+  
+          </script>
+      </header>
+    </header>
+
+  <div class="main">
+    <div class="form-section">
+      <div>
+        <input type="text" placeholder="Nueva Tarea" />
+        <div class="prioridad">
+          <label>Alta</label>
+          <label>Media</label>
+          <label>Baja</label>
+        </div>
+        <input type="text" placeholder="Fecha límite:" />
+        <input type="text" placeholder="Compartir con:" />
+        <textarea rows="6" placeholder="Descripción"></textarea>
+        <div class="buttons">
+          <button>Crear</button>
+          <button>Cancelar</button>
+        </div>
+      </div>
+
+      
+
+    </div>
+
+    <div id="calendario">
+      <div id="encabezado-calendario">
+
+          <button id="prev">◀</button>
+          <span id="mes-anio">Mes Año</span>
+          <button id="next">▶</button>
+
+      </div>
+      <div id="dias-semana">
+        <span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
+      </div>
+
+      <div id="dias"></div>
+
+    </div>
+  </div>
+
+  <script src="/Js/Script.js"></script>
+</body>
+</html>

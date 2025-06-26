@@ -1,0 +1,49 @@
+  <!-- Botón hamburguesa (solo móviles) -->
+  <button class="toggle-sidebar d-md-none" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+  </button>
+
+<script src="/JS/Script.js"></script>
+
+<script>
+  function toggleSidebar() {
+    document.body.classList.toggle('sidebar-visible');
+  }
+
+  // Cargar la barra lateral dinámicamente
+  fetch('/HTML/Wime_SideBar.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('sidebar-container').innerHTML = html;
+
+      // ✅ Espera a que el HTML esté insertado, y entonces inicializa el calendario
+      if (typeof inicializarCalendario === "function") {
+        inicializarCalendario();
+      }
+    });
+</script>
+
+
+<!-- Bootstrap JS -->
+<script src="/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+  <!-- Modal para crear nueva tarea o rutina -->
+<div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="modalNuevoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalNuevoLabel">¿Qué deseas crear?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-2">
+
+        <!-- dentro del modal -->
+        <a href="/HTML/Wime_interfaz_Modulo_CTareas.html" class="btn btn-primary">Crear Tarea</a>
+        <a href="/HTML/Wime_interfaz_Modulo_CRutinas.html" class="btn btn-success">Crear Rutina</a>
+
+      </div>
+    </div>
+  </div>
+</div>
