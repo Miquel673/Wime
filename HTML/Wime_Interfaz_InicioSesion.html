@@ -1,172 +1,89 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="/Css/Wime_interfaz_inicio_Sesion.Css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/IMG/Logo_Wime.png">
+</head>
 
-        <title>Inicio de Sesión</title>
-        <link rel="stylesheet" href="/Css/Wime_interfaz_inicio_Sesion.Css">
-        <link rel="icon" type="image/png" href="/IMG/Logo_Wime.png">
-        
-    </head>
-    <body>
+<body>
 
-        <br>
-        
-        <section class="formulario">
+    <div class="container w-75 bg-warning mt-5 rounded shadow">
+        <div class="row align-items-stretch">
+            <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded-start">
 
-            <h1>_.Wime._</h1>
-            <h2>Iniciar sesión</h2>
-        
-            <form method="post" action="/PHP/Wime_InicioSesion.php"> <!-- Se envía a login.php -->
-                <div class="username">
-                    <input type="text" name="email" required>
-                    <label>Correo electrónico o Nombre de Usuario</label>
+            </div>
+            <div class="col bg-white p-5 rounded-end">
+                <div class="text-end">
+                    <img src="../IMG/Logo_Wime.png" width="90" alt="">
                 </div>
+                <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+                <form action="#">
+                    <div class="mb-4">
+                        <label class="form-label" for="">Usuario</label>
+                        <input type="text" class="form-control" name="usuario">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="">Contraseña</label>
+                        <input type="password" class="form-control" name="contrasena">
+                    </div>
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" name="connected" class="form-check-input">
+                        <label for="connected" class="form-check-label">Mantenerme conectado</label>
+                    </div>
 
-                <div class="contraseña">
-                    <input type="password" name="password" required>
-                    <label>Contraseña</label>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                    </div>
+
+                    <div class="my-3">
+                        <span>¿No tienes cuenta?<a href="">Regístrate</a></span><br>
+                        <span><a href="">Recuperar contraseña</a></span>
+                    </div>
+                </form>
+
+                <div class="container w-100 my-5">
+                    <div class="row text-center">
+                        <div class="col-12">Iniciar Sesión</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-danger w-100 my-1">
+                                <div class="row align-items-center">
+                                    <div class="col-2 d-none d-lg-block">
+                                        <img src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"
+                                            width="32" alt="">
+                                    </div>
+                                    <div class="col-12 col-md-10 text-center">
+                                        Google
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-outline-primary w-100 my-1">
+                                <div class="row align-items-center">
+                                    <div class="col-2 d-none d-lg-block">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
+                                            width="32" alt="">
+                                    </div>
+                                    <div class="col-12 col-md-10 text-center">
+                                        Facebook
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Js/Script.js"></script>
+</body>
 
-                <br>
-                <input type="submit" value="Iniciar Sesión">
-
-                <div class="recordar">¿Olvidó su contraseña?</div>
-                
-                <br>
-                <div class="registrarse">
-                    Quiero hacer el <a href="/HTML/Wime_interfaz_Registro.html">registro</a>
-                </div>
-            </form>
-
-        </section>
-
-        <section class="Iniciar_Con">  
-
-            <h2>O Inicia sesion con:</h2>
-      
-                                      <!--Autenticacion con Google-->
-      
-              <div class="google">
-      
-      
-      
-                      <script src="https://accounts.google.com/gsi/client" async defer></script>
-      
-                  <div id="g_id_onload"
-                      data-client_id="TU_CLIENT_ID"
-                      data-context="signin"
-                      data-ux_mode="popup"
-                      data-callback="handleCredentialResponse"
-                      data-auto_prompt="false">
-                  </div>
-                  
-                  <div class="g_id_signin" data-type="standard"></div>
-                  
-                  <script>
-                  function handleCredentialResponse(response) {
-                      console.log("ID Token: " + response.credential);
-                  }
-                  </script>
-      
-              </div>
-                                  <!--Autenticacion con Microsoft-->
-      
-              <div id="Microsoft">
-                
-                <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.13.0/js/msal-browser.min.js"></script>
-      
-                <script>
-                    const msalConfig = {
-                        auth: {
-                            clientId: "TU_CLIENT_ID", // Reemplázalo con tu ID de aplicación
-                            authority: "https://login.microsoftonline.com/common",
-                            redirectUri: "https://tu-sitio.com/auth/microsoft/callback"
-                        }
-                    };
-      
-                    const msalInstance = new msal.PublicClientApplication(msalConfig);
-      
-                    function iniciarSesionMicrosoft() {
-                        msalInstance.loginPopup({ scopes: ["User.Read"] })
-                            .then(response => {
-                                console.log("Usuario autenticado:", response.account);
-                            })
-                            .catch(error => {
-                                console.error("Error al autenticar:", error);
-                            });
-                    }
-                </script>
-      
-                <button onclick="iniciarSesionMicrosoft()" style="
-                display: flex; 
-                align-items: center; 
-                background-color: #2F2F2F; 
-                color: white; 
-                border: none; 
-                padding: 10px 15px; 
-                border-radius: 5px; 
-                font-size: 16px; 
-                cursor: pointer;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" 
-                    alt="Microsoft Logo" 
-                    style="width: 20px; height: 20px; margin-right: 10px;">
-                Iniciar sesión con Microsoft
-                </button>
-      
-              </div>
-      
-                                  <!--Autenticacion con Facebook-->
-      
-              <div id="facebook">
-                  
-                  <script>
-                      window.fbAsyncInit = function() {
-                        FB.init({
-                          appId      : 'TU_APP_ID',
-                          cookie     : true,
-                          xfbml      : true,
-                          version    : 'v18.0' 
-                        });
-                    
-                        FB.AppEvents.logPageView();   
-                      };
-                    
-                      (function(d, s, id){
-                         var js, fjs = d.getElementsByTagName(s)[0];
-                         if (d.getElementById(id)) {return;}
-                         js = d.createElement(s); js.id = id;
-                         js.src = "https://connect.facebook.net/en_US/sdk.js";
-                         fjs.parentNode.insertBefore(js, fjs);
-                       }(document, 'script', 'facebook-jssdk'));
-                    </script>
-                    
-                    <!-- Botón de login -->
-                    <fb:login-button 
-                      scope="public_profile,email"
-                      onlogin="checkLoginState();">
-                    </fb:login-button>
-                    
-                    <script>
-                      function checkLoginState() {
-                        FB.getLoginStatus(function(response) {
-                          if (response.status === 'connected') {
-                            console.log('Usuario autenticado:', response.authResponse);
-                          } else {
-                            console.log('Usuario no autenticado');
-                          }
-                        });
-                      }
-                    </script>
-                    
-              </div>
-      
-          </section>
-
-          <script src="/Js/Script.js"></script>
-
-
-    </body>
 </html>
