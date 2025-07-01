@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Wime/public/Css/Wime_SideBar.Css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <title>Wime | Barra Lateral</title>
+</head>
+<body>
+    <header>
+
+        
+        <!-- Reemplaza este -->
+    <div id="sidebar-container" class="sidebar"></div>
+
+    <!-- Por esto -->
+    <section class="sidebar">
+        <a href="/Wime/public/HTML/Wime_interfaz_Usuario.html" id="Wime_Nombre"><h2>WIME</h2></a>
+        <a href="/Wime/public/HTML/Wime_interfaz_configuracion.html"><i class="fas fa-cog"></i></a>
+        <a href="#" id="bandejaEntrada"><i class="fas fa-envelope"></i></a>
+        <a href="#" id="nuevoBtn" data-bs-toggle="modal" data-bs-target="#modalNuevo">+ Nuevo</a>
+        <a href="#">🏠 Inicio</a>
+        <a href="#">📅 Actividades</a>
+
+        <!-- Calendario -->
+        <div id="calendario" class="mt-4">
+  <div id="encabezado-calendario" class="d-flex justify-content-between align-items-center mb-2">
+    <button id="prev" class="btn btn-outline-primary btn-sm">◀</button>
+    <span id="mes-anio" class="fw-bold">Mes Año</span>
+    <button id="next" class="btn btn-outline-primary btn-sm">▶</button>
+  </div>
+
+  <div id="dias-semana">
+    <span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
+  </div>
+
+  <div id="dias"></div>
+</div>
+
+
+        <div class="footer-links">
+            <a href="/Wime/private/PhP/Wime_interfaz_Cuenta.php">👤 Cuenta</a>
+            <a href="/Wime/Controllers/LogOutController.php">🔓 Cerrar Sesión</a>
+        </div>
+    </section>
+
+    </header>
+
+    
+    <Footer>
+
+        <script src="/Wime/public/Js/Script.js"></script>
+        
+    </Footer>
+</body>
+</html>

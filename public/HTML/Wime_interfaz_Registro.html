@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Wime/public/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Wime/public/Css/Wime_interfaz_Registro_Usuario.Css">
+    <title>Registro de Usuario</title>
+
+    <link rel="icon" type="image/png" href="/Wime/public/IMG/Logo_Wime.png">
+</head>
+
+<body>
+
+    <section class="formulario_Registro_Usuario">
+
+        <form action="/Wime/Controllers/RegisterController.php" method="POST">
+
+            <fieldset>
+                <legend>Nuevo Usuario</legend>
+
+                <label for="EmailUsuario">E-mail: </label>
+                <input id="EmailUsuario" name="EmailUsuario" type="email" placeholder="Correo electrónico" required>
+
+                <label for="NombreUsuario">Nuevo nombre: </label>
+                <input id="NombreUsuario" name="NombreUsuario" type="text" placeholder="Nombre de usuario" required>
+
+                <label for="ContrasenaUsuario">Contraseña: </label>
+                <input id="ContrasenaUsuario" name="ContrasenaUsuario" type="password" placeholder="Contraseña" required>
+
+                <label for="confirm_password">Confirmar contraseña: </label>
+                <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirmar contraseña" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Información Personal</legend>
+
+                <label for="Birth_Day">Fecha de nacimiento: </label>
+                <input id="Birth_Day" name="Birth_Day" type="date" required oninput="calcularEdad()">
+
+            </fieldset>
+
+            <br>
+
+            <button type="submit">Registrarse</button>
+            <button type="button" onclick="location.href='/Wime/public/HTML/Wime_interfaz_Pagina-Principal.html'">Cancelar</button>
+        </form>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+    </section>
+
+    <section class="Iniciar_Con">  
+
+      <h2>O registrate con:</h2>
+
+                                <!--Autenticacion con Google-->
+
+        <div class="google">
+
+
+
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+            <div id="g_id_onload"
+                data-client_id="TU_CLIENT_ID"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            </div>
+            
+            <div class="g_id_signin" data-type="standard"></div>
+            
+            <script>
+            function handleCredentialResponse(response) {
+                console.log("ID Token: " + response.credential);
+            }
+            </script>
+
+        </div>
+                            <!--Autenticacion con Microsoft-->
+
+        <div id="Microsoft">
+          
+          <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.13.0/js/msal-browser.min.js"></script>
+
+          <script>
+              const msalConfig = {
+                  auth: {
+                      clientId: "TU_CLIENT_ID", // Reemplázalo con tu ID de aplicación
+                      authority: "https://login.microsoftonline.com/common",
+                      redirectUri: "https://tu-sitio.com/auth/microsoft/callback"
+                  }
+              };
+
+              const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+              function iniciarSesionMicrosoft() {
+                  msalInstance.loginPopup({ scopes: ["User.Read"] })
+                      .then(response => {
+                          console.log("Usuario autenticado:", response.account);
+                      })
+                      .catch(error => {
+                          console.error("Error al autenticar:", error);
+                      });
+              }
+          </script>
+
+          <button onclick="iniciarSesionMicrosoft()" style="
+          display: flex; 
+          align-items: center; 
+          background-color: #2F2F2F; 
+          color: white; 
+          border: none; 
+          padding: 10px 15px; 
+          border-radius: 5px; 
+          font-size: 16px; 
+          cursor: pointer;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" 
+              alt="Microsoft Logo" 
+              style="width: 20px; height: 20px; margin-right: 10px;">
+          Iniciar sesión con Microsoft
+          </button>
+
+        </div>
+
+                            <!--Autenticacion con Facebook-->
+
+        <div id="facebook">
+            
+            <script>
+                window.fbAsyncInit = function() {
+                  FB.init({
+                    appId      : 'TU_APP_ID',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v18.0' 
+                  });
+              
+                  FB.AppEvents.logPageView();   
+                };
+              
+                (function(d, s, id){
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) {return;}
+                  js = d.createElement(s); js.id = id;
+                  js.src = "https://connect.facebook.net/en_US/sdk.js";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+              </script>
+              
+              <!-- Botón de login -->
+              <fb:login-button 
+                scope="public_profile,email"
+                onlogin="checkLoginState();">
+              </fb:login-button>
+              
+              <script>
+                function checkLoginState() {
+                  FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                      console.log('Usuario autenticado:', response.authResponse);
+                    } else {
+                      console.log('Usuario no autenticado');
+                    }
+                  });
+                }
+              </script>
+              
+        </div>
+
+    </section>
+
+    <div id="notificacion" style="display:none; position:fixed; bottom:20px; right:20px; background:#f8d7da; color:#721c24; padding:15px; border-radius:5px; box-shadow:0px 0px 10px rgba(0,0,0,0.1);">
+      ¡Este correo ya está registrado!
+  </div>
+  
+
+    <script src="/Wime/public/Js/Script.js"></script>
+    <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+
+
+    
+    
+</body>
+
+</html>
