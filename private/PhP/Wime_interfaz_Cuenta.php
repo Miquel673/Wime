@@ -77,9 +77,9 @@ if (!isset($_SESSION["usuario"])) {
       <div class="flex-grow-1 bg-white border p-3 rounded shadow-sm">
         <h5 class="mb-3">Productividad:</h5>
         <ul class="list-unstyled mb-3">
-          <li>➤ Tareas Realizadas: <strong>2</strong></li>
-          <li>➤ Rutinas Finalizadas: <strong>3</strong></li>
-          <li>➤ En proceso: <strong>0</strong></li>
+          <li>➤ Tareas Realizadas: <strong></strong></li>
+          <li>➤ Rutinas Finalizadas: <strong></strong></li>
+          <li>➤ En proceso: <strong></strong></li>
         </ul>
         <div>
           <button class="btn btn-success me-2">📈 Progreso</button>
