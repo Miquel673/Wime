@@ -47,53 +47,63 @@ body.sidebar-visible .sidebar {
 }
 
 /* CALENDARIO */
-/* Ajusta el calendario en la barra lateral */
 #calendario {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-top: 25px;
 }
 
-
-#calendario {
+#encabezado-calendario {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 10px;
 }
-
 
 #encabezado-calendario button {
-  font-size: 0.8rem;
-  padding: 3px 6px;
-  border: none;
-  background-color: #339af0;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 4px 10px;
+  font-size: 14px;
 }
 
-#dias-semana,
+#mes-anio {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
 #dias {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  text-align: center;
 }
 
-#dias span {
-  padding: 4px;
-  background-color: #f1f3f5;
-  border-radius: 4px;
-  cursor: pointer;
+.calendar-day {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
 }
 
-#dias span:hover {
-  background-color: #339af0;
+.calendar-day.today {
+  background-color: #4A90E2;
   color: white;
+  font-weight: bold;
 }
 
+.empty {
+  background: transparent;
+  border: none;
+}
 
 /* ENLACES DE PIE */
 .footer-links {
@@ -118,7 +128,7 @@ body.sidebar-visible .sidebar {
   transition: left 0.3s ease;
 }
 
-/* BOTÓN EN PANTALLAS GRANDES */
+/* VERSIÓN DE ESCRITORIO */
 @media (min-width: 768px) {
   body .sidebar {
     transform: translateX(0);
@@ -133,6 +143,7 @@ body.sidebar-visible .sidebar {
   }
 }
 
+/* VERSIÓN MÓVIL */
 @media (max-width: 767px) {
   .main-content {
     margin-left: 0;

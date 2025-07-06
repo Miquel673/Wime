@@ -1,11 +1,11 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["usuario"])) {
-    header("Location: /Wime/public/HTML/Wime_interfaz_Inicio-Sesion.html");
-    exit;
+if (!isset($_SESSION["id_usuario"])) {
+  header("Location: /Wime/public/HTML/Wime_interfaz_Inicio-Sesion.html");
+  exit;
 }
 ?>
+
 
 
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION["usuario"])) {
     
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link type="text/Css" rel="stylesheet" href="/Wime/public/Css/Wime_Styles_Int_Principal.Css">
+    <link type="text/Css" rel="stylesheet" href="/Wime/public/Css/Wime_interfaz_Tablero.css">
     <link type="text/Css" rel="stylesheet" href="/Wime/public/Css/Wime_SideBar.Css">
     <link rel="icon" type="image/png" href="/Wime/public/IMG/Logo_Wime.png">
     <link rel="stylesheet" href="/Wime/public/bootstrap-5.3.7-dist/css/bootstrap.min.css">
@@ -40,22 +40,17 @@ if (!isset($_SESSION["usuario"])) {
 
 
   <script>
-    function toggleSidebar() {
-      document.body.classList.toggle('sidebar-visible');
+  fetch('/Wime/public/HTML/Wime_SideBar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("sidebar-container").innerHTML = html;
+    if (typeof window.inicializarCalendario === "function") {
+      window.inicializarCalendario();
     }
+  });
 
-    // Cargar la barra lateral dinámicamente
-    fetch('/Wime/public/HTML/Wime_SideBar.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('sidebar-container').innerHTML = html;
-
-        // ✅ Espera a que el HTML esté insertado, y entonces inicializa el calendario
-        if (typeof inicializarCalendario === "function") {
-          inicializarCalendario();
-        }
-      });
   </script>
+
 
   <!-- Modal para crear nueva tarea o rutina -->
 <div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="modalNuevoLabel" aria-hidden="true">
@@ -78,9 +73,10 @@ if (!isset($_SESSION["usuario"])) {
   <div class="main">
     <h1 class="titulo">Tablero</h1>
     <div class="tabs">
-      <div class="tab active" onclick="showContent('tareas')">Tareas</div>
-      <div class="tab" onclick="showContent('rutinas')">Rutinas</div>
-    </div>
+  <div class="tab active" data-tipo="tareas">Tareas</div>
+<div class="tab" data-tipo="rutinas">Rutinas</div>
+
+</div>
     <div class="top-bar">
       <input type="text" placeholder="🔍 search" class="search">
       <div class="filter">
@@ -92,18 +88,22 @@ if (!isset($_SESSION["usuario"])) {
           <option value="baja">Baja prioridad</option>
         </select>
       </div>
-      <button class="crear" onclick="crearElemento()">＋ Crear</button>
+        <button><a href="#" id="nuevoBtn" data-bs-toggle="modal" data-bs-target="#modalNuevo">Nuevo</a></button>
     </div>
-
-    <div id="contenido"></div>
-  </div>
-
-  <script src="/Wime/public/Js/Script.js"></script>
-  <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
 
     
 
-  
+    <div id="contenido">
+  <div id="contenedor-tareas" class="row row-cols-1 row-cols-md-2 g-4 mt-3"></div>
+  <div id="contenedor-rutinas" class="row row-cols-1 row-cols-md-2 g-4 mt-3" style="display: none;"></div>
+</div>
+
+
+
+  </div>
+
+  <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/Wime/public/Js/Wime_Modulo_CTyR.js"></script>
 </body>
 
 

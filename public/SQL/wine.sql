@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2025 a las 20:42:04
+-- Tiempo de generación: 06-07-2025 a las 03:17:33
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `wine`
+-- Base de datos: `wime`
 --
 
 DELIMITER $$
@@ -264,7 +264,7 @@ CREATE TABLE `usuario` (
   `NombreUsuario` varchar(20) NOT NULL,
   `FechaRegistro` datetime NOT NULL,
   `EmailUsuario` varchar(50) NOT NULL,
-  `ContraseñaUsiario` varchar(20) NOT NULL,
+  `ContrasenaUsuario` varchar(225) NOT NULL,
   `Edad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -272,18 +272,11 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`IDusuario`, `NombreUsuario`, `FechaRegistro`, `EmailUsuario`, `ContraseñaUsiario`, `Edad`) VALUES
-(4, 'Katerin', '2025-04-05 02:16:11', 'KaterinBejaran@emaile.com', '80805', 17),
-(5, 'Rin', '2025-04-11 19:50:30', 'RinOkumura@email.com', '1234567', 18),
-(6, 'Yukio', '2025-04-01 08:07:21', 'YukioOkumura@gmail.com', 'L4m2p8T9r', 18),
-(7, 'John', '2025-04-02 08:07:21', 'John123@gmail.com', 'z9K1e7B5w', 19),
-(8, 'Serafina', '2025-04-03 08:07:21', 'SerafinaAs@gmail.com', 'Q3v6n8M2a', 20),
-(9, 'Arlo', '2025-04-04 08:14:37', 'ArloRey@gmail.com', 't2R5x6Z8y', 18),
-(10, 'Remi', '2025-03-25 08:14:37', 'RemiRayos@gmail.com', 'M9b1L3q7T', 16),
-(11, 'Blyke', '2025-04-06 08:14:37', 'BlykeLaser@gmail.com', 'd6W7y3V1k', 17),
-(12, 'Subaru', '2025-04-05 15:14:26', 'SubaruNatsuki@gmail.com', 'H2x9p4Z7m', 18),
-(13, 'Reinhard ', '2025-04-05 15:14:26', 'ReinhardVanAstrea@gmail.com', 'f3Q6t8K2r', 20),
-(14, 'Administrador', '2025-04-13 16:34:44', 'Administrador112@gmail.com', 't2R5x6Z8y', 25);
+INSERT INTO `usuario` (`IDusuario`, `NombreUsuario`, `FechaRegistro`, `EmailUsuario`, `ContrasenaUsuario`, `Edad`) VALUES
+(19, 'HelloWorld', '2025-06-30 22:58:02', 'helloworld@gmail.com', '$2y$10$H6W2owhPnzL5QDxuYxCPFuKMPIpL026Z22WpRP83p7bXjCJcF4ymm', 23),
+(20, 'Miguel Ibarvo', '2025-07-01 01:40:11', 'mixagg6@gmail.com', '$2y$10$ZmCJAykvmGduB/T40TETmOUqoLDU4O8U3uvyH896NwYm9q0xkEem.', 19),
+(21, 'cu', '2025-07-02 03:39:03', 'hu@gmail.com', '$2y$10$B0yJ5c0kLKo0YQMY3ky8Iep.CCVYDnugN4GI1tW6EW6WRqDcAX0L2', 13),
+(22, 'Miguel chevere', '2025-07-03 05:45:51', 'miguel06@gmail.com', '$2y$10$3lJ3LGLTc3Zi.yRRfTjDHeRBbYdV7.ym6c/GHTctiPDGrsSIdiql.', 19);
 
 --
 -- Índices para tablas volcadas
@@ -363,13 +356,13 @@ ALTER TABLE `rutina`
 -- AUTO_INCREMENT de la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `IDTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `IDTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `IDusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `IDusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas

@@ -46,7 +46,7 @@ a{
     align-items: center;
     justify-content: space-between;
 
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: #f8f9fa; /* igual que .bg-light */
     opacity: 0.90;
 
@@ -91,9 +91,7 @@ a{
 
 
 
-.container.text-center.mt-4{
-    padding-top: 150px;
-}
+
 
 .Logo_Wime_principal{
     margin: 0px 5px 0px 0px;

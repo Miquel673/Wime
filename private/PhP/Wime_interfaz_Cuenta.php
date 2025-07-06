@@ -19,43 +19,36 @@ if (!isset($_SESSION["usuario"])) {
 <link rel="stylesheet" href="/Wime/public/bootstrap-5.3.7-dist/css/bootstrap.min.css">
 
   <!-- Ícono -->
-  <link rel="icon" type="image/png" href="/IMG/Logo_Wime.png">
+  <link rel="icon" type="image/png" href="Wime/public/IMG/Logo_Wime.png">
 
   <!-- Estilos propios -->
-  <link rel="stylesheet" href="/Css/Wime_SideBar.css">
-  <link rel="stylesheet" href="/Css/wime_interfaz_cuenta.css">
+  <link rel="stylesheet" href="/Wime/public/Css/Wime_SideBar.css">
+  <link rel="stylesheet" href="/Wime/public/Css/wime_interfaz_cuenta.css">
 
   <!-- Íconos Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
-  <!-- Botón hamburguesa (solo móviles) -->
+    <!-- Botón hamburguesa (solo móviles) -->
   <button class="toggle-sidebar d-md-none" onclick="toggleSidebar()">
     <i class="bi bi-list"></i>
   </button>
 
-  <!-- Contenedor para la barra lateral -->
   <div id="sidebar-container"></div>
 
+
   <script>
-  function toggleSidebar() {
-    document.body.classList.toggle('sidebar-visible');
-  }
-
-  // Cargar la barra lateral dinámicamente
   fetch('/Wime/public/HTML/Wime_SideBar.html')
-  .then(response => response.text())
+  .then(res => res.text())
   .then(html => {
-    document.getElementById('sidebar-container').innerHTML = html;
-
-    // Esperar a que el DOM esté cargado y llamar el calendario
-    if (typeof inicializarCalendario === "function") {
-      inicializarCalendario();
+    document.getElementById("sidebar-container").innerHTML = html;
+    if (typeof window.inicializarCalendario === "function") {
+      window.inicializarCalendario();
     }
   });
 
-</script>
+  </script>
 
   <!-- Contenido principal -->
   <main class="main-content">
@@ -65,7 +58,7 @@ if (!isset($_SESSION["usuario"])) {
     </div>
 
     <div class="d-flex align-items-center gap-3 mb-4">
-      <img src="/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
+      <img src="/Wime/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
       <h1 class="fs-4 text-primary-emphasis">
         <?php echo "Bienvenido, " .htmlspecialchars($_SESSION["usuario"]); ?>
       </h1>

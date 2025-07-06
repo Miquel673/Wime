@@ -28,64 +28,6 @@ function toggleSidebar() {
 
 //-----------------Calendario-----------------//
 
-function inicializarCalendario() {
-  const mesAnio = document.getElementById('mes-anio');
-  const diasContainer = document.getElementById('dias');
-  const btnPrev = document.getElementById("prev");
-  const btnNext = document.getElementById("next");
-
-  // Verifica que los elementos existan antes de continuar
-  if (!mesAnio || !diasContainer || !btnPrev || !btnNext) return;
-
-  let fechaActual = new Date();
-  let mes = fechaActual.getMonth();
-  let año = fechaActual.getFullYear();
-
-  const meses = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-  ];
-
-  function mostrarCalendario() {
-    diasContainer.innerHTML = "";
-    const primerDia = new Date(año, mes, 1).getDay();
-    const diasDelMes = new Date(año, mes + 1, 0).getDate();
-
-    mesAnio.textContent = `${meses[mes]} ${año}`;
-
-    for (let i = 0; i < primerDia; i++) {
-      const espacio = document.createElement("span");
-      espacio.innerHTML = "";
-      diasContainer.appendChild(espacio);
-    }
-
-    for (let dia = 1; dia <= diasDelMes; dia++) {
-      const span = document.createElement("span");
-      span.textContent = dia;
-      diasContainer.appendChild(span);
-    }
-  }
-
-  btnPrev.addEventListener("click", () => {
-    mes--;
-    if (mes < 0) {
-      mes = 11;
-      año--;
-    }
-    mostrarCalendario();
-  });
-
-  btnNext.addEventListener("click", () => {
-    mes++;
-    if (mes > 11) {
-      mes = 0;
-      año++;
-    }
-    mostrarCalendario();
-  });
-
-  mostrarCalendario();
-}
 
 
 
@@ -205,7 +147,7 @@ let tipoActual = 'tareas';
       if (tipo === 'tareas') {
         tabs[0].classList.add("active");
       } else {
-        tabs[1].classList.add("active");
+        tabs[1].classList.add("active");zz
       }
       renderizarContenido();
     }
@@ -291,3 +233,4 @@ let tipoActual = 'tareas';
     }
 
     showContent('tareas');
+z

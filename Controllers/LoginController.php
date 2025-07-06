@@ -57,6 +57,8 @@ if ($resultado->num_rows === 1) {
 
     if (password_verify($contrasena, $usuario["ContrasenaUsuario"])) {
         $_SESSION["usuario"] = $usuario["NombreUsuario"];
+        $_SESSION["id_usuario"] = $usuario["IDusuario"];
+
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'message' => '❌ Contraseña incorrecta.']);

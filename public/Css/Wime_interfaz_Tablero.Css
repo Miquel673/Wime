@@ -109,3 +109,12 @@ body {
     border: 1px solid #ccc;
     width: 100%;
 }
+
+.titulo-tarea {
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  text-align: center;
+}
