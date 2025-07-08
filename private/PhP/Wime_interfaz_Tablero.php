@@ -104,6 +104,8 @@ if (!isset($_SESSION["id_usuario"])) {
 
   <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
   <script src="/Wime/public/Js/Wime_Modulo_CTyR.js"></script>
+  <script src="/Wime/public/Js/Wime_Editar.js"></script>
+
 </body>
 
 

@@ -10,14 +10,19 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const contrasena = document.getElementById("contrasena").value;
+
+    if (!email || !contrasena) {
+      mostrarToast("⚠️ Debes llenar todos los campos.", false);
+      return;
+    }
 
     fetch("/Wime/Controllers/LoginController.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
-      },
+},
       body: `email=${encodeURIComponent(email)}&contrasena=${encodeURIComponent(contrasena)}`
     })
       .then(response => response.json())
@@ -27,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.success) {
           mostrarToast("✅ Inicio de sesión exitoso", true, true);
         } else {
-          mostrarToast(data.message || "❌ Error desconocido", false);
+          mostrarToast(data.message || "❌ Usuario o contraseña incorrectos", false);
         }
       })
       .catch(error => {
@@ -42,10 +47,13 @@ function mostrarToast(mensaje, esExito = true, redirigir = false) {
   const texto = document.getElementById("texto-toast");
 
   texto.textContent = mensaje;
+
+  // Estilos
   toast.classList.remove("text-bg-success", "text-bg-danger", "d-none");
   toast.classList.add(esExito ? "text-bg-success" : "text-bg-danger");
   toast.classList.remove("d-none");
 
+  // Ocultar después de 2.5 segundos
   setTimeout(() => {
     toast.classList.add("d-none");
     if (redirigir && esExito) {

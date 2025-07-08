@@ -3,7 +3,7 @@ session_start();
 header("Content-Type: application/json");
 
 if (!isset($_SESSION["id_usuario"])) {
-  echo json_encode(["success" => false, "message" => "Sesión no iniciada"]);
+  echo json_encode(["success" => false, "message" => "⚠️ Sesión no iniciada"]);
   exit;
 }
 
@@ -13,24 +13,29 @@ if ($conn->connect_error) {
   exit;
 }
 
-$id_tarea = $_POST["id_tarea"] ?? '';
+$id_usuario = $_SESSION["id_usuario"];
+$id_tarea = $_POST["id"] ?? null;
 $titulo = trim($_POST["titulo"] ?? '');
 $prioridad = $_POST["prioridad"] ?? '';
-$fecha_limite = $_POST["fecha_limite"] ?? '';
+$fecha_limite = $_POST["fecha_limite"] ?? null;
 $descripcion = trim($_POST["descripcion"] ?? '');
+$estado = $_POST["estado"] ?? "pendiente";
 
-if (!$id_tarea || !$titulo || !$prioridad || !$fecha_limite) {
+if (!$id_tarea || empty($titulo) || empty($prioridad) || empty($fecha_limite)) {
   echo json_encode(["success" => false, "message" => "⚠️ Faltan campos obligatorios"]);
   exit;
 }
 
-$sql = "UPDATE tareas SET titulo = ?, prioridad = ?, fecha_limite = ?, descripcion = ? WHERE IDtarea = ? AND id_usuario = ?";
+$sql = "UPDATE tareas SET titulo = ?, prioridad = ?, fecha_limite = ?, descripcion = ?, estado = ?
+        WHERE IDtarea = ? AND id_usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssii", $titulo, $prioridad, $fecha_limite, $descripcion, $id_tarea, $_SESSION["id_usuario"]);
+$stmt->bind_param("ssssssi", $titulo, $prioridad, $fecha_limite, $descripcion, $estado, $id_tarea, $id_usuario);
 
-echo $stmt->execute()
-  ? json_encode(["success" => true])
-  : json_encode(["success" => false, "message" => "❌ No se pudo actualizar"]);
+if ($stmt->execute()) {
+  echo json_encode(["success" => true]);
+} else {
+  echo json_encode(["success" => false, "message" => "❌ Error al actualizar la tarea"]);
+}
 
 $stmt->close();
 $conn->close();

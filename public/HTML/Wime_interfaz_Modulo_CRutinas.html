@@ -53,7 +53,7 @@
         
   <div class="mb-3">
     <label class="form-label">Nombre de la Rutina</label>
-    <input type="text" name="titulo" class="form-control" placeholder="Nueva tarea" required>
+    <input type="text" name="titulo" class="form-control" placeholder="Nueva Rutina" required>
   </div>
 
 
@@ -74,22 +74,35 @@
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Fecha de fin</label>
+    <label class="form-label">Fecha de Asignacion</label>
+    <input type="date" name="fecha_Asignacion" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Fecha Meta</label>
     <input type="date" name="fecha_limite" class="form-control" required>
   </div>
+
+  <div class="mb-3">
+      <label class="form-label">Frecuencia</label>
+      <select name="estado" class="form-select" required>
+      <option value="Diario" selected>Diario</option>
+      <option value="Mensual">Mensual</option>
+      <option value="Semanal">Semanal</option>
+      <input type="date" name="Frecuencia" class="form-control" required>
+
+    </select>
+  </div>
+
 
   <div class="mb-3">
     <label class="form-label">Descripción</label>
     <textarea name="descripcion" class="form-control" rows="4"></textarea>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3" hidden>
   <label class="form-label">Estado</label>
-  <select name="estado" class="form-select" required>
-    <option value="pendiente" selected>Pendiente</option>
-    <option value="en_proceso">En proceso</option>
-    <option value="completada">Completada</option>
-  </select>
+    <p value="pendiente" selected>Pendiente</p>
 </div>
 
 
