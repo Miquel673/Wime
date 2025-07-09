@@ -123,7 +123,7 @@ function getColorPorEstado(estado) {
 tarjeta.innerHTML = `
   <div class="card shadow-sm h-100">
     <div class="card-body">
-      <h5 class="card-title titulo-tarea" style="background-color: blue;">${tarea.titulo}</h5>
+      <h5 class="card-title titulo-tarea text-white"  style="background-color: blue;">${tarea.titulo}</h5>
       <p class="card-text"><strong>Prioridad:</strong> ${tarea.prioridad}</p>
       <p class="card-text"><strong>Fecha límite:</strong> ${tarea.fecha_limite}</p>
       <p class="card-text">${tarea.descripcion || "Sin descripción."}</p>
@@ -170,10 +170,9 @@ tarjeta.innerHTML = `
 function mostrarRutinas(rutinas) {
   const contenedor = document.getElementById("contenedor-rutinas");
   if (!contenedor) return;
-
   contenedor.innerHTML = "";
 
-  if (rutinas.length === 0) {
+  if (!Array.isArray(rutinas) || rutinas.length === 0) {
     contenedor.innerHTML = `<p class="text-center w-100">No hay rutinas disponibles.</p>`;
     return;
   }
@@ -185,15 +184,40 @@ function mostrarRutinas(rutinas) {
     tarjeta.innerHTML = `
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title">${rutina.titulo}</h5>
-          <p class="card-text"><strong>Repeticiones:</strong> ${rutina.repeticiones}</p>
-          <p class="card-text"><strong>Inicio:</strong> ${rutina.fecha_inicio}</p>
-          <p class="card-text"><strong>Fin:</strong> ${rutina.fecha_fin}</p>
-          <p class="card-text">${rutina.descripcion || "Sin descripción."}</p>
-          <span class="badge bg-${getColorPorPrioridad(rutina.prioridad)}">${rutina.estado || "Activa"}</span>
+          <h5 class="card-title titulo-tarea bg-primary text-white">${rutina.NombreRutina}</h5>
+          <p class="card-text"><strong>Prioridad:</strong> ${rutina.Prioridad}</p>
+          <p class="card-text"><strong>Frecuencia:</strong> ${rutina.Frecuencia}</p>
+          <p class="card-text"><strong>Fecha de Asignacion:</strong> ${rutina.FechaAsignacion}</p>
+          <p class="card-text"><strong>Fecha Fin:</strong> ${rutina.FechaFin}</p>
+          <p class="card-text">${rutina.Descripcion || "Sin descripción."}</p>
+
+          <button class="btn btn-sm btn-outline-primary w-100 mt-2" data-bs-toggle="collapse" data-bs-target="#opciones-rutina-${rutina.IDRutina}">▼ Ver opciones</button>
+          
+          <div class="collapse mt-2" id="opciones-rutina-${rutina.IDRutina}">
+            <label><strong>Estado:</strong></label>
+            <div class="dropdown mb-2">
+              <button class="btn btn-sm dropdown-toggle text-white bg-${getColorPorEstado(rutina.Estado)}" type="button" data-bs-toggle="dropdown">
+                ${rutina.Estado || "Pendiente"}
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="cambiarEstadoRutina(${rutina.IDRutina}, 'pendiente')">Pendiente</a></li>
+                <li><a class="dropdown-item" href="#" onclick="cambiarEstadoRutina(${rutina.IDRutina}, 'en progreso')">En progreso</a></li>
+                <li><a class="dropdown-item" href="#" onclick="cambiarEstadoRutina(${rutina.IDRutina}, 'completada')">Completada</a></li>
+              </ul>
+            </div>
+
+            <button class="btn btn-danger btn-sm" onclick="eliminarRutina(${rutina.IDRutina})">Eliminar</button>
+
+            <div class="d-flex justify-content-end mt-3">
+              <a href="/Wime/private/PhP/Wime_interfaz_Modulo_ERutinas.php?id=${rutina.IDRutina}" class="btn btn-sm btn-outline-secondary">
+                Editar
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     `;
+
     contenedor.appendChild(tarjeta);
   });
 }
@@ -220,25 +244,15 @@ function mostrarError(tipo, mensaje) {
   }
 }
 
-function showContent(tipo) {
-  const tareas = document.getElementById("contenedor-tareas");
-  const rutinas = document.getElementById("contenedor-rutinas");
-
-  if (!tareas || !rutinas) return;
-
-  if (tipo === "tareas") {
-    tareas.style.display = "flex";
-    rutinas.style.display = "none";
-  } else {
-    tareas.style.display = "none";
-    rutinas.style.display = "flex";
+function getColorPorEstado(estado) {
+  switch (estado?.toLowerCase()) {
+    case "pendiente": return "secondary";
+    case "en progreso": return "warning";
+    case "completada": return "success";
+    default: return "dark";
   }
-
-  // Activar pestaña correspondiente
-  document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-  const activeTab = document.querySelector(`.tab[onclick="showContent('${tipo}')"]`);
-  if (activeTab) activeTab.classList.add("active");
 }
+
 
 
 
@@ -266,6 +280,27 @@ function eliminarTarea(id) {
     .catch(err => console.error("❌ Error:", err));
 }
 
+function eliminarRutina(idRutina) {
+  if (!confirm("¿Estás seguro de que deseas eliminar esta rutina?")) return;
+
+  fetch("/Wime/Controllers/ERController.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `id=${idRutina}`
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      location.reload();
+    } else {
+      alert("⚠️ No se pudo eliminar la rutina.");
+    }
+  })
+  .catch(err => {
+    console.error("❌ Error eliminando rutina:", err);
+  });
+}
+
 //Actualizar estado//
 
 function cambiarEstadoTarea(id, nuevoEstado) {
@@ -288,3 +323,72 @@ function cambiarEstadoTarea(id, nuevoEstado) {
       console.error("❌ Error al cambiar el estado:", err);
     });
 }
+
+function cambiarEstadoRutina(idRutina, nuevoEstado) {
+  fetch("/Wime/Controllers/ActEstadoRController.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `id=${idRutina}&estado=${encodeURIComponent(nuevoEstado)}`
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      location.reload();
+    } else {
+      alert("⚠️ No se pudo cambiar el estado.");
+    }
+  })
+  .catch(err => {
+    console.error("❌ Error cambiando estado:", err);
+  });
+}
+
+
+//Filtro TyR Tablero//
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab");
+  const contenedorTareas = document.getElementById("contenedor-tareas");
+  const contenedorRutinas = document.getElementById("contenedor-rutinas");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Quitar clase activa de todos los tabs
+      tabs.forEach(t => t.classList.remove("active"));
+
+      // Activar el tab actual
+      tab.classList.add("active");
+
+      // Mostrar el contenedor correspondiente
+      const tipo = tab.dataset.tipo;
+      if (tipo === "tareas") {
+        contenedorTareas.style.display = "flex";
+        contenedorRutinas.style.display = "none";
+      } else if (tipo === "rutinas") {
+        contenedorTareas.style.display = "none";
+        contenedorRutinas.style.display = "flex";
+      }
+    });
+  });
+});
+
+function showContent(tipo) {
+  const tareas = document.getElementById("contenedor-tareas");
+  const rutinas = document.getElementById("contenedor-rutinas");
+
+  if (!tareas || !rutinas) return;
+
+  if (tipo === "tareas") {
+    tareas.style.display = "flex";
+    rutinas.style.display = "none";
+  } else {
+    tareas.style.display = "none";
+    rutinas.style.display = "flex";
+  }
+
+  // Tabs visuales
+  document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+  const activeTab = document.querySelector(`.tab[data-tipo="${tipo}"]`);
+  if (activeTab) activeTab.classList.add("active");
+}
+

@@ -1,6 +1,6 @@
 <?php
 session_start();
-header("Content-Type: application/json");
+header('Content-Type: application/json');
 
 if (!isset($_SESSION["id_usuario"])) {
   echo json_encode(["success" => false, "message" => "❌ Sesión no iniciada"]);
@@ -9,6 +9,7 @@ if (!isset($_SESSION["id_usuario"])) {
 
 $id_usuario = $_SESSION["id_usuario"];
 
+// Conexión a la base de datos
 $conn = new mysqli("localhost", "root", "", "Wime");
 
 if ($conn->connect_error) {
@@ -16,14 +17,15 @@ if ($conn->connect_error) {
   exit;
 }
 
-$sql = "SELECT * FROM rutinas WHERE id_usuario = ?";
+// Consulta las rutinas del usuario actual
+$sql = "SELECT * FROM rutinas WHERE IDusuarios = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
-$resultado = $stmt->get_result();
+$result = $stmt->get_result();
 
 $rutinas = [];
-while ($fila = $resultado->fetch_assoc()) {
+while ($fila = $result->fetch_assoc()) {
   $rutinas[] = $fila;
 }
 
@@ -31,3 +33,4 @@ echo json_encode($rutinas);
 
 $stmt->close();
 $conn->close();
+?>
