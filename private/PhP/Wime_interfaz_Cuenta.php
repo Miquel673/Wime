@@ -58,7 +58,7 @@ if (!isset($_SESSION["usuario"])) {
     </div>
 
     <div class="d-flex align-items-center gap-3 mb-4">
-      <img src="/Wime/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
+      <img src="/Wime/public/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
       <h1 class="fs-4 text-primary-emphasis">
         <?php echo "Bienvenido, " .htmlspecialchars($_SESSION["usuario"]); ?>
       </h1>
@@ -66,7 +66,7 @@ if (!isset($_SESSION["usuario"])) {
     </div>
 
     <div class="d-flex flex-wrap gap-3">
-      <div class="bg-white border p-3 rounded shadow-sm" style="width: 250px;">
+      <div class="bg-white border p-3 rounded shadow-sm" style="width: 300px;">
         <h5 class="mb-3">Tableros</h5>
         <button class="btn btn-outline-primary w-100 mb-2"><a href="/Wime/private/PhP/Wime_interfaz_Tablero.php">Mi tablero</a></button>
         <button class="btn btn-primary w-100 my-2" data-bs-toggle="modal" data-bs-target="#modalNuevo">

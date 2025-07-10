@@ -291,7 +291,8 @@ function eliminarRutina(idRutina) {
   .then(res => res.json())
   .then(data => {
     if (data.success) {
-      location.reload();
+      alert("✅ Rutina eliminada");
+      cargarRutinas();
     } else {
       alert("⚠️ No se pudo eliminar la rutina.");
     }
@@ -300,6 +301,7 @@ function eliminarRutina(idRutina) {
     console.error("❌ Error eliminando rutina:", err);
   });
 }
+
 
 //Actualizar estado//
 

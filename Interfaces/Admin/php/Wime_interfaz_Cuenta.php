@@ -22,7 +22,7 @@ if (!isset($_SESSION["usuario"])) {
   <link rel="icon" type="image/png" href="Wime/public/IMG/Logo_Wime.png">
 
   <!-- Estilos propios -->
-  <link rel="stylesheet" href="/Wime/public/Css/Wime_SideBar.css">
+  <link rel="stylesheet" href="/Wime/Interfaces/Admin/HTML/Wime_SideBar.html">
   <link rel="stylesheet" href="/Wime/public/Css/wime_interfaz_cuenta.css">
 
   <!-- Íconos Bootstrap -->
@@ -39,7 +39,7 @@ if (!isset($_SESSION["usuario"])) {
 
 
   <script>
-  fetch('/Wime/public/HTML/Wime_SideBar.html')
+  fetch('/Wime/Interfaces/Admin/HTML/Wime_SideBar.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById("sidebar-container").innerHTML = html;
@@ -58,7 +58,7 @@ if (!isset($_SESSION["usuario"])) {
     </div>
 
     <div class="d-flex align-items-center gap-3 mb-4">
-      <img src="/Wime/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
+      <img src="/Wime/Public/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
       <h1 class="fs-4 text-primary-emphasis">
         <?php echo "Bienvenido, " .htmlspecialchars($_SESSION["usuario"]); ?>
       </h1>
@@ -86,7 +86,9 @@ if (!isset($_SESSION["usuario"])) {
           <button class="btn btn-secondary">📋</button>
         </div>
       </div>
+      
     </div>
+    
   </main>
 
   <!-- Modal para crear nueva tarea o rutina -->

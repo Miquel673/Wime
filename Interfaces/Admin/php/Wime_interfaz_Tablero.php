@@ -8,7 +8,6 @@ if (!isset($_SESSION["id_usuario"])) {
 
 
 
-
 <!DOCTYPE html>
 
 <head>
@@ -40,7 +39,7 @@ if (!isset($_SESSION["id_usuario"])) {
 
 
   <script>
-  fetch('/Wime/public/HTML/Wime_SideBar.html')
+  fetch('/Wime/Interfaces/Admin/HTML/Wime_SideBar.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById("sidebar-container").innerHTML = html;

@@ -36,7 +36,7 @@
         <img src="/Wime/public/IMG/Logo_Wime.png" width="80" alt="Logo" class="mb-3" /> 
         <h2 class="mb-4 text-center">Crea tu cuenta como Administrador</h2>
 
-        <form action="/Wime/Controllers/RegisterController.php" method="POST">
+        <form action="/Wime/Controllers/AdminAcces/RegisterControllerAdmin.php" method="POST">
           <div class="mb-3">
             <label for="EmailUsuario" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="EmailUsuario" name="EmailUsuario" required>
@@ -66,6 +66,9 @@
             <button type="submit" class="btn btn-primary">Registrarse</button>
             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/Wime/public/HTML/Wime_interfaz_Pagina-Principal.html'">Cancelar</button>
           </div>
+
+          <input type="hidden" name="tipo" value="Administrador">
+
         </form>
 
         <hr class="my-4">
