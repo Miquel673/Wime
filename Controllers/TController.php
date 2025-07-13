@@ -20,6 +20,7 @@ $fecha_limite = $_POST["fecha_limite"] ?? null;
 $descripcion = trim($_POST["descripcion"] ?? '');
 $estado = "pendiente";
 
+
 // Validación
 if (empty($titulo) || empty($prioridad) || empty($fecha_limite)) {
     echo json_encode(["success" => false, "message" => "⚠️ Faltan campos obligatorios"]);
@@ -36,6 +37,8 @@ if ($stmt->execute()) {
 } else {
     echo json_encode(["success" => false, "message" => "❌ Error al guardar"]);
 }
+
+
 
 $stmt->close();
 $conn->close();

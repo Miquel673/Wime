@@ -27,6 +27,8 @@ $descripcion = trim($_POST["descripcion"] ?? '');
 $estado = "pendiente"; // Estado por defecto
 $compartir_con = trim($_POST["compartir_con"] ?? '');
 
+
+
 // Validación básica
 if (empty($titulo) || empty($prioridad) || empty($fecha_asignacion) || empty($fecha_limite) || empty($frecuencia)) {
   echo json_encode(["success" => false, "message" => "⚠️ Faltan campos obligatorios"]);

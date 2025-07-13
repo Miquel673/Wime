@@ -16,6 +16,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $resultado = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>

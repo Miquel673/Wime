@@ -67,8 +67,8 @@ if (!isset($_SESSION["id_usuario"])) {
     </div>
 
     <div class="top-bar d-flex gap-3 align-items-center flex-wrap">
-      <input type="text" placeholder="🔍 search" class="form-control" id="busqueda" style="max-width: 300px;">
-      <button><a href="#" id="nuevoBtn" data-bs-toggle="modal" data-bs-target="#modalNuevo">Nuevo</a></button>
+      <input type="text" placeholder="🔍 Buscar" class="form-control" id="busqueda" style="max-width: 300px;">
+      <button class="btn btn-primary "><a class="link-offset-2 link-underline link-underline-opacity-0 text-light" href="#" id="nuevoBtn" data-bs-toggle="modal" data-bs-target="#modalNuevo">Nuevo</a></button>
     </div>
     <select id="filtro-estado" class="form-select" style="max-width: 200px;">
         <option value="">Todos los estados</option>
@@ -83,27 +83,6 @@ if (!isset($_SESSION["id_usuario"])) {
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const inputBusqueda = document.getElementById("busqueda");
-      if (inputBusqueda) {
-        inputBusqueda.addEventListener("input", aplicarFiltroBusqueda);
-      }
-    });
-
-    function aplicarFiltroBusqueda() {
-      const texto = document.getElementById("busqueda").value.toLowerCase();
-
-      const tarjetas = document.querySelectorAll(".card-body");
-
-      tarjetas.forEach(tarjeta => {
-        const titulo = tarjeta.querySelector(".card-title")?.textContent.toLowerCase() || "";
-        const descripcion = tarjeta.querySelector(".card-text")?.textContent.toLowerCase() || "";
-        const coincide = titulo.includes(texto) || descripcion.includes(texto);
-        tarjeta.closest(".col").style.display = coincide ? "block" : "none";
-      });
-    }
-  </script>
 
   <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
   <script src="/Wime/public/Js/Wime_Modulo_CTyR.js"></script>
