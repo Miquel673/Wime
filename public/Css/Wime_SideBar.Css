@@ -8,10 +8,11 @@ body .sidebar {
   background: linear-gradient(180deg, #ffffff, #f0f0f0);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  overflow-y: auto;
   z-index: 1000;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
+
+  overflow-y: none;
 }
 
 body.sidebar-visible .sidebar {
@@ -53,7 +54,7 @@ body.sidebar-visible .sidebar {
   background-color: #f8f9fa;
   border-radius: 8px;
   padding: 10px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 #encabezado-calendario {
@@ -177,3 +178,4 @@ body.sidebar-visible .sidebar {
     left: 260px;
   }
 }
+

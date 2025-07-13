@@ -1,31 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const busquedaInput = document.getElementById("busqueda");
-  const filtroPrioridad = document.getElementById("filter-prioridad");
-  const filtroTipo = document.getElementById("filter-tipo");
+      const inputBusqueda = document.getElementById("busqueda");
+      const filtroEstado = document.getElementById("filtro-estado");
 
-  if (!busquedaInput || !filtroPrioridad || !filtroTipo) return;
+      if (inputBusqueda) inputBusqueda.addEventListener("input", aplicarFiltros);
+      if (filtroEstado) filtroEstado.addEventListener("change", aplicarFiltros);
+    });
 
-  busquedaInput.addEventListener("input", aplicarFiltros);
-  filtroPrioridad.addEventListener("change", aplicarFiltros);
-  filtroTipo.addEventListener("change", aplicarFiltros);
-});
+    function aplicarFiltros() {
+      const texto = document.getElementById("busqueda").value.toLowerCase();
+      const estadoSeleccionado = document.getElementById("filtro-estado").value;
+      const tarjetas = document.querySelectorAll(".card-body");
 
-function aplicarFiltros() {
-  const texto = document.getElementById("busqueda").value.toLowerCase();
-  const prioridad = document.getElementById("filter-prioridad").value.toLowerCase();
-  const tipo = document.getElementById("filter-tipo").value.toLowerCase();
+      tarjetas.forEach(tarjeta => {
+        const titulo = tarjeta.querySelector(".card-title")?.textContent.toLowerCase() || "";
+        const descripcion = Array.from(tarjeta.querySelectorAll(".card-text"))
+                                .map(p => p.textContent.toLowerCase()).join(" ");
+        const estado = tarjeta.querySelector(".badge")?.textContent.toLowerCase() || "";
 
-  const tarjetas = document.querySelectorAll(".tarjeta-tarea, .tarjeta-rutina");
+        const coincideTexto = titulo.includes(texto) || descripcion.includes(texto);
+        const coincideEstado = !estadoSeleccionado || estado === estadoSeleccionado;
 
-  tarjetas.forEach(tarjeta => {
-    const titulo = tarjeta.querySelector(".card-title")?.textContent.toLowerCase() || "";
-    const prioridadTarjeta = tarjeta.getAttribute("data-prioridad")?.toLowerCase() || "";
-    const tipoTarjeta = tarjeta.classList.contains("tarjeta-tarea") ? "tarea" : "rutina";
-
-    const coincideTexto = titulo.includes(texto);
-    const coincidePrioridad = !prioridad || prioridad === prioridadTarjeta;
-    const coincideTipo = !tipo || tipo === tipoTarjeta;
-
-    tarjeta.style.display = (coincideTexto && coincidePrioridad && coincideTipo) ? "block" : "none";
-  });
-}
+        tarjeta.closest(".col").style.display = (coincideTexto && coincideEstado) ? "block" : "none";
+      });
+    }

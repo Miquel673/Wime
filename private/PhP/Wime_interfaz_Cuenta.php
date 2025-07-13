@@ -73,16 +73,16 @@ if (!isset($_SESSION["usuario"])) {
         <button class="btn btn-primary w-100 my-2" data-bs-toggle="modal" data-bs-target="#modalNuevo">
           ➕
         </button>
-                <div id="calendario">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <button id="prev" class="btn btn-sm btn-outline-primary">◀</button>
-      <h5 id="mes-anio" class="m-0"></h5>
-      <button id="next" class="btn btn-sm btn-outline-primary">▶</button>
-    </div>
-    <div id="dias-semana">
-      <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
-    </div>
-    <div id="dias"></div>
+  <div id="calendario-Cuenta">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <button id="prev" class="btn btn-sm btn-outline-primary">◀</button>
+        <h5 id="mes-anio" class="m-0"></h5>
+        <button id="next" class="btn btn-sm btn-outline-primary">▶</button>
+      </div>
+      <div id="dias-semana">
+        <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
+      </div>
+      <div id="dias"></div>
   </div>
 
 
@@ -143,9 +143,6 @@ if (!isset($_SESSION["usuario"])) {
 
 
 
-<script src="/Wime/public/Js/Estadisticas.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const hoy = new Date();
@@ -161,7 +158,7 @@ if (!isset($_SESSION["usuario"])) {
   });
 </script>
 
-  <script>
+<script>
     let fechaActual = new Date();
     const mesAnio = document.getElementById("mes-anio");
     const diasContainer = document.getElementById("dias");
@@ -210,10 +207,15 @@ if (!isset($_SESSION["usuario"])) {
     renderizarCalendario();
   </script>
 
-  
+<script src="/Wime/public/Js/calendario.js"></script>
+<script src="/Wime/public/Js/Estadisticas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 </body>
 
-</body>
+
+
 </html>
