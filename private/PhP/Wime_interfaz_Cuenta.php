@@ -51,11 +51,13 @@ if (!isset($_SESSION["usuario"])) {
   </script>
 
   <!-- Contenido principal -->
-  <main class="main-content">
-    <div class="d-flex justify-content-between mb-3">
-      <span></span>
-      <div>📅 27/10/2024</div>
-    </div>
+    <main class="main-content">
+
+      <div class="d-flex justify-content-between mb-3">
+  <span></span>
+  <div id="fecha-actual">📅 Cargando Fecha...</div>
+</div>
+
 
     <div class="d-flex align-items-center gap-3 mb-4">
       <img src="/Wime/public/IMG/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpeg" alt="Avatar" class="rounded-circle bg-secondary" style="width: 60px; height: 60px;">
@@ -67,24 +69,51 @@ if (!isset($_SESSION["usuario"])) {
 
     <div class="d-flex flex-wrap gap-3">
       <div class="bg-white border p-3 rounded shadow-sm" style="width: 300px;">
-        <h5 class="mb-3">Tableros</h5>
         <button class="btn btn-outline-primary w-100 mb-2"><a href="/Wime/private/PhP/Wime_interfaz_Tablero.php">Mi tablero</a></button>
         <button class="btn btn-primary w-100 my-2" data-bs-toggle="modal" data-bs-target="#modalNuevo">
           ➕
         </button>
+                <div id="calendario">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button id="prev" class="btn btn-sm btn-outline-primary">◀</button>
+      <h5 id="mes-anio" class="m-0"></h5>
+      <button id="next" class="btn btn-sm btn-outline-primary">▶</button>
+    </div>
+    <div id="dias-semana">
+      <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
+    </div>
+    <div id="dias"></div>
+  </div>
+
+
+
       </div>
 
       <div class="flex-grow-1 bg-white border p-3 rounded shadow-sm">
         <h5 class="mb-3">Productividad:</h5>
-        <ul class="list-unstyled mb-3">
-          <li>➤ Tareas Realizadas: <strong></strong></li>
-          <li>➤ Rutinas Finalizadas: <strong></strong></li>
-          <li>➤ En proceso: <strong></strong></li>
+        <ul>
+          <li> Tareas Realizadas: <strong id="tareas-completadas">0</strong></li>
+          <li> Rutinas Finalizadas: <strong id="rutinas-finalizadas">0</strong></li>
+          <li> En proceso: <strong id="en-proceso">0</strong></li>
         </ul>
+
+        <div class="card shadow-sm my-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">📊 Resumen de Actividades</h5>
+  </div>
+  <div class="card-body">
+    <canvas id="grafico-estadisticas" height="70"></canvas>
+  </div>
+</div>
+
+
+
+
         <div>
           <button class="btn btn-success me-2">📈 Progreso</button>
           <button class="btn btn-secondary">📋</button>
         </div>
+        
       </div>
     </div>
   </main>
@@ -114,10 +143,76 @@ if (!isset($_SESSION["usuario"])) {
 
 
 
-<script src="/Wime/public/JS/Script.js"></script>
-
-<!-- Bootstrap JS -->
+<script src="/Wime/public/Js/Estadisticas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hoy = new Date();
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Meses comienzan en 0
+    const anio = hoy.getFullYear();
+
+    const fechaFormateada = `📅 ${dia}/${mes}/${anio}`;
+    const contenedorFecha = document.getElementById("fecha-actual");
+    if (contenedorFecha) {
+      contenedorFecha.textContent = fechaFormateada;
+    }
+  });
+</script>
+
+  <script>
+    let fechaActual = new Date();
+    const mesAnio = document.getElementById("mes-anio");
+    const diasContainer = document.getElementById("dias");
+
+    function renderizarCalendario() {
+      diasContainer.innerHTML = "";
+
+      const year = fechaActual.getFullYear();
+      const month = fechaActual.getMonth();
+      const primerDia = new Date(year, month, 1).getDay();
+      const totalDias = new Date(year, month + 1, 0).getDate();
+
+      mesAnio.textContent = fechaActual.toLocaleDateString("es-ES", {
+        month: "long",
+        year: "numeric"
+      });
+
+      for (let i = 0; i < primerDia; i++) {
+        diasContainer.innerHTML += `<div></div>`;
+      }
+
+      for (let d = 1; d <= totalDias; d++) {
+        const dia = document.createElement("div");
+        dia.classList.add("dia");
+        dia.textContent = d;
+
+        const hoy = new Date();
+        if (d === hoy.getDate() && month === hoy.getMonth() && year === hoy.getFullYear()) {
+          dia.classList.add("hoy");
+        }
+
+        diasContainer.appendChild(dia);
+      }
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+      fechaActual.setMonth(fechaActual.getMonth() - 1);
+      renderizarCalendario();
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      fechaActual.setMonth(fechaActual.getMonth() + 1);
+      renderizarCalendario();
+    });
+
+    renderizarCalendario();
+  </script>
+
+  
+
+
 </body>
 
 </body>

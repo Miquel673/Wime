@@ -25,12 +25,6 @@ function toggleSidebar() {
   document.body.classList.toggle('sidebar-visible');
 }
 
-
-//-----------------Calendario-----------------//
-
-
-
-
 //--------------Calcular edad _ Registro de Usuario---------------------------//
 
 function calcularEdad() {
@@ -121,7 +115,4 @@ document.addEventListener('DOMContentLoaded', () => {
   body.style.color = 'white';
     });
 });
-
-
-//----Interfaz principal----//
 
