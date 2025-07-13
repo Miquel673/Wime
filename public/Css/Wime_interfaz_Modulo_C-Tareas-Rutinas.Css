@@ -58,3 +58,8 @@
     cursor: pointer;
   }
   
+
+  #mensaje-flotante {
+  z-index: 9999;
+  background-color: #28a745;
+}

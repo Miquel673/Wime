@@ -40,8 +40,10 @@ if (empty($email) || empty($contrasena)) {
 }
 
 // --- Consulta del usuario ---
-$sql = "SELECT IDusuario, NombreUsuario, ContrasenaUsuario FROM usuario WHERE EmailUsuario = ?";
+$sql = "SELECT IDusuario, NombreUsuario, ContrasenaUsuario, Tipo FROM usuario WHERE EmailUsuario = ?";
 $stmt = $conn->prepare($sql);
+
+
 
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => '❌ Error preparando la consulta.']);
@@ -56,15 +58,15 @@ if ($resultado->num_rows === 1) {
     $usuario = $resultado->fetch_assoc();
 
     if (password_verify($contrasena, $usuario["ContrasenaUsuario"])) {
-        $_SESSION["usuario"] = $usuario["NombreUsuario"];
-        $_SESSION["id_usuario"] = $usuario["IDusuario"];
+    $_SESSION["usuario"] = $usuario["NombreUsuario"];
+    $_SESSION["id_usuario"] = $usuario["IDusuario"];
+    $_SESSION["tipo"] = $usuario["Tipo"]; // ✅ Este es el que faltaba
 
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false, 'message' => '❌ Contraseña incorrecta.']);
-    }
+    echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'message' => '❌ Usuario no encontrado.']);
+    echo json_encode(['success' => false, 'message' => '❌ Contraseña incorrecta.']);
+}
+
 }
 
 $stmt->close();

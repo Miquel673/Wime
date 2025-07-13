@@ -1,30 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("form-tarea");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
 
-    const datos = new FormData(form);
-
-    fetch("/Wime/Controllers/EDTController.php", {
-      method: "POST",
-      body: datos
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        alert("✅ Tarea creada correctamente");
-        form.reset();
-      } else {
-        alert("❌ Error: " + data.message);
-      }
-    })
-    .catch(err => {
-      alert("❌ Error de conexión");
-      console.error(err);
-    });
-  });
-});
 
 // Visualizacion de tareas y rutinas en el tablero //
 

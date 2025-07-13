@@ -40,15 +40,21 @@ if (!isset($_SESSION["id_usuario"])) {
 
 
   <script>
-  fetch('/Wime/public/HTML/Wime_SideBar.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById("sidebar-container").innerHTML = html;
-    if (typeof window.inicializarCalendario === "function") {
-      window.inicializarCalendario();
+    function toggleSidebar() {
+      document.body.classList.toggle('sidebar-visible');
     }
-  });
 
+    // Cargar la barra lateral dinámicamente
+    fetch('/Wime/public/HTML/Wime_SideBar.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+
+        // ✅ Espera a que el HTML esté insertado, y entonces inicializa el calendario
+        if (typeof inicializarCalendario === "function") {
+          inicializarCalendario();
+        }
+      });
   </script>
 
 
@@ -67,7 +73,6 @@ if (!isset($_SESSION["id_usuario"])) {
     </div>
   </div>
 </div>
-
   </header>
 <body>
   <div class="main">

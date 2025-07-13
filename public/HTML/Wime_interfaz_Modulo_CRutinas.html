@@ -11,6 +11,8 @@
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/Wime/public/Css/Wime_SideBar.css">
   <link rel="stylesheet" href="/Wime/public/Css/Wime_interfaz_Modulo_C-Tareas-Rutinas.Css">
+    <link rel="stylesheet" href="/Wime/public/Css/Wime_interfaz_Calendario.Css">
+
 
   <!-- Ícono -->
   <link rel="icon" type="image/png" href="/Wime/public/IMG/Logo_Wime.png">
@@ -49,7 +51,7 @@
     <div class="container py-5">
       <h2 class="mb-4">Crear Nueva Rutina</h2>
 
-      <form action="/Wime/Controllers/RController.php" method="POST" class="bg-white p-4 rounded shadow-sm">
+      <form id="form-rutina" class="bg-white p-4 rounded shadow-sm">
   <!-- Nombre -->
   <div class="mb-3">
     <label class="form-label">Nombre de la Rutina</label>
@@ -121,27 +123,72 @@
 
 
       <!-- Calendario (si lo usas aquí) -->
-      <div class="mt-5">
-        <h4>Calendario</h4>
-        <div id="calendario">
-          <div id="encabezado-calendario" class="d-flex justify-content-between align-items-center bg-light p-2 rounded shadow-sm mb-2">
-            <button id="prev" class="btn btn-outline-primary btn-sm">◀</button>
-            <span id="mes-anio" class="fw-bold">Mes Año</span>
-            <button id="next" class="btn btn-outline-primary btn-sm">▶</button>
-          </div>
-          <div id="dias-semana" class="d-flex justify-content-between text-center fw-bold">
-            <span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
-          </div>
-          <div id="dias"></div>
-        </div>
-      </div>
+              <div id="calendario">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button id="prev" class="btn btn-sm btn-outline-primary">◀</button>
+      <h5 id="mes-anio" class="m-0"></h5>
+      <button id="next" class="btn btn-sm btn-outline-primary">▶</button>
     </div>
-  </main>
+    <div id="dias-semana">
+      <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
+    </div>
+    <div id="dias"></div>
+  </div>
+
+  <script>
+    let fechaActual = new Date();
+    const mesAnio = document.getElementById("mes-anio");
+    const diasContainer = document.getElementById("dias");
+
+    function renderizarCalendario() {
+      diasContainer.innerHTML = "";
+
+      const year = fechaActual.getFullYear();
+      const month = fechaActual.getMonth();
+      const primerDia = new Date(year, month, 1).getDay();
+      const totalDias = new Date(year, month + 1, 0).getDate();
+
+      mesAnio.textContent = fechaActual.toLocaleDateString("es-ES", {
+        month: "long",
+        year: "numeric"
+      });
+
+      for (let i = 0; i < primerDia; i++) {
+        diasContainer.innerHTML += `<div></div>`;
+      }
+
+      for (let d = 1; d <= totalDias; d++) {
+        const dia = document.createElement("div");
+        dia.classList.add("dia");
+        dia.textContent = d;
+
+        const hoy = new Date();
+        if (d === hoy.getDate() && month === hoy.getMonth() && year === hoy.getFullYear()) {
+          dia.classList.add("hoy");
+        }
+
+        diasContainer.appendChild(dia);
+      }
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+      fechaActual.setMonth(fechaActual.getMonth() - 1);
+      renderizarCalendario();
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      fechaActual.setMonth(fechaActual.getMonth() + 1);
+      renderizarCalendario();
+    });
+
+    renderizarCalendario();
+  </script>
 
   <!-- Scripts -->
   <script src="/Wime/public/Js/Script.js"></script>
+  <script src="/Wime/public/Js/CR_Script.js"></script>
+
   <script src="/Wime/public/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/Wime/public/Js/crear_tarea.js"></script>
 
 
   <!-- Ajuste para que el contenido no se monte sobre la barra lateral -->

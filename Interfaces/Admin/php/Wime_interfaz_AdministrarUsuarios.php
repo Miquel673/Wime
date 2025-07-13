@@ -29,9 +29,9 @@ $usuarios = $conn->query("SELECT IDusuario, NombreUsuario, EmailUsuario, Edad, F
 </head>
 <body class="container py-5">
 
-    <h4 class="text-center">Bienvenido, <?php echo htmlspecialchars($_SESSION["usuario"]); ?> 👋</h4>
+    <h2 class="text-center">Bienvenido, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></h2>
 
-    <h2 class="mb-4">👥 Usuarios Registrados</h2>
+    <h2 class="mb-4">Usuarios Registrados</h2>
 
     <?php if ($usuarios->num_rows > 0): ?>
     <table class="table table-bordered table-striped">
