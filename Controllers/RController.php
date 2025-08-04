@@ -48,6 +48,13 @@ if ($stmt->execute()) {
   echo json_encode(["success" => false, "message" => "❌ Error al guardar rutina"]);
 }
 
+$mensaje = "Se ha creado una nueva rutina: " . $NombreRutina;
+$sqlNotif = "INSERT INTO notificaciones (id_usuario, tipo, mensaje) VALUES (?, 'rutina', ?)";
+$stmtNotif = $conn->prepare($sqlNotif);
+$stmtNotif->bind_param("is", $id_usuario, $mensaje);
+$stmtNotif->execute();
+
+
 $stmt->close();
 $conn->close();
 ?>

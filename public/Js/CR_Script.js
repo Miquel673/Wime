@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(data => {
         if (data.success) {
           mostrarToast("✅ Rutina creada exitosamente", true, true);
+          alert("rutina creada exitosamente")
           form.reset();
         } else {
           mostrarToast(data.message || "❌ No se pudo crear la rutina", false);
@@ -42,7 +43,7 @@ function mostrarToast(mensaje, esExito = true, redirigir = false) {
   toast.classList.remove("d-none", "bg-danger", "bg-success");
   toast.classList.add(esExito ? "bg-success" : "bg-danger");
 
-  setTimeout(() => {
+    setTimeout(() => {
     toast.classList.add("d-none");
     if (redirigir && esExito) {
       window.location.href = "/Wime/private/PhP/Wime_interfaz_Tablero.php";

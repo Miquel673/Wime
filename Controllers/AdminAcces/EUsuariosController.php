@@ -28,3 +28,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_usuario"])) {
 } else {
     echo "❗ Petición no válida.";
 }
+
+//Cambio de estado
+
+// --- Cambiar estado del usuario ---
+$sql = "UPDATE usuario SET Estado = 'Inactivo' WHERE IDusuario = ?";
+$stmt = $conn->prepare($sql);
+
+if ($stmt) {
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        echo json_encode(['success' => true, 'message' => '✅ Usuario inactivado exitosamente.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => '⚠️ No se encontró el usuario o ya estaba inactivo.']);
+    }
+
+    $stmt->close();
+} else {
+    echo json_encode(['success' => false, 'message' => '❌ Error preparando la consulta.']);
+}
+
+$conn->close();

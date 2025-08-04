@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(data => {
         if (data.success) {
           mostrarToast("✅ Tarea creada correctamente", true, true);
+          alert("Tarea creada exitosamente")
           form.reset();
         } else {
           mostrarToast(data.message || "❌ No se pudo crear la tarea", false);

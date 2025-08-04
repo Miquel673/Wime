@@ -58,5 +58,53 @@ function inicializarCalendario() {
   renderizarCalendario();
 }
 
+
+
+
+/*document.addEventListener('DOMContentLoaded', function () {
+  if (typeof FullCalendar === 'undefined') {
+     alert("❌ FullCalendar no está cargado"); 
+    console.error("Error: FullCalendar no está definido. ¿Se cargó bien el archivo main.min.js?");
+    return;
+  }*/
+
+  const calendarioEl = document.getElementById('miCalendario');
+
+  /*if (!calendarioEl) {
+    alert("❌ No se encontró el contenedor con ID 'miCalendario'");
+    return;
+  }
+
+  const calendar = new FullCalendar.Calendar(calendarioEl, {
+    initialView: 'dayGridMonth',
+    locale: 'es',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,listWeek'
+    },
+    events: [
+      {
+        title: '📝 Tarea de prueba',
+        start: '2025-07-24',
+        color: '#2E86C1'
+      },
+      {
+        title: '🔁 Rutina de ejemplo',
+        start: '2025-07-26',
+        color: '#28B463'
+      }
+    ],
+    eventClick: function (info) {
+      alert(`📌 ${info.event.title}\n📅 ${info.event.start.toLocaleDateString()}`);
+    }
+  });
+
+  calendar.render();
+  console.log(typeof FullCalendar);
+
+});*/
+
+
 // Exportar globalmente si la sidebar se carga por fetch
 window.inicializarCalendario = inicializarCalendario;

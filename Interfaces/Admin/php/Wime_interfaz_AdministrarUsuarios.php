@@ -59,18 +59,28 @@ $usuarios = $conn->query("SELECT IDusuario, NombreUsuario, EmailUsuario, Edad, F
                 <td><?= $usuario["Estado"] ?></td>
 
                 <td>
-                    <form action="/Wime/Controllers/AdminAcces/EUsuariosController.php" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');">
-                        <input type="hidden" name="id_usuario" value="<?= $usuario["IDusuario"] ?>">
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
+    <form action="/Wime/Controllers/AdminAcces/ActEstadoUsController.php" method="POST">
+        <input type="hidden" name="id_usuario" value="<?= $usuario["IDusuario"] ?>">
+        <input type="hidden" name="estado_actual" value="<?= $usuario["Estado"] ?>">
+        <?php if ($usuario["Estado"] === "Activo"): ?>
+            <button type="submit" class="btn btn-warning btn-sm">Inactivar</button>
+        <?php else: ?>
+            <button type="submit" class="btn btn-success btn-sm">Activar</button>
+        <?php endif; ?>
+    </form>
+</td>
+
             </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
+
+    
     <?php else: ?>
         <p class="alert alert-info">No hay usuarios registrados.</p>
     <?php endif; ?>
+    
+    <script src="/Wime/Interfaces/Admin/js/Wime_Estado_Usuario.js"></script>
 
 </body>
 </html>

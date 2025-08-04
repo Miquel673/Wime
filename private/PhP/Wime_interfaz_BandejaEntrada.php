@@ -17,6 +17,8 @@ $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +40,12 @@ $resultado = $stmt->get_result();
 </head>
 <body class="container py-5">
   <h2 class="mb-4">🔔 Tus Notificaciones</h2>
+
+  <form action="/Wime/Controllers/NotiController.php" method="post" class="mb-3 d-flex gap-2">
+  <button name="accion" value="marcar_leidas" class="btn btn-success">✅ Marcar todas como leídas</button>
+  <button name="accion" value="eliminar_todas" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar todas las notificaciones?')">🗑️ Eliminar todas</button>
+  </form>
+
 
   <?php if ($resultado->num_rows > 0): ?>
     <ul class="list-group">

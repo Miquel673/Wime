@@ -35,5 +35,12 @@ echo $stmt->execute()
   ? json_encode(["success" => true])
   : json_encode(["success" => false, "message" => "Error al actualizar"]);
 
+  $mensaje = "Se ha editado la Rutina: " . $NombreRutina;
+$sqlNotif = "INSERT INTO notificaciones (id_usuario, tipo, mensaje) VALUES (?, 'rutina', ?)";
+$stmtNotif = $conn->prepare($sqlNotif);
+$stmtNotif->bind_param("is", $id_usuario, $mensaje);
+$stmtNotif->execute();
+
+
 $stmt->close();
 $conn->close();

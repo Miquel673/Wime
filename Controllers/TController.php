@@ -38,6 +38,13 @@ if ($stmt->execute()) {
     echo json_encode(["success" => false, "message" => "❌ Error al guardar"]);
 }
 
+// Después de insertar la tarea exitosamente
+$mensaje = "Se ha creado una nueva tarea: " . $titulo;
+$sqlNotif = "INSERT INTO notificaciones (id_usuario, tipo, mensaje) VALUES (?, 'tarea', ?)";
+$stmtNotif = $conn->prepare($sqlNotif);
+$stmtNotif->bind_param("is", $id_usuario, $mensaje);
+$stmtNotif->execute();
+
 
 
 $stmt->close();

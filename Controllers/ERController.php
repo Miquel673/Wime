@@ -36,5 +36,12 @@ if ($stmt->execute()) {
   echo json_encode(["success" => false, "message" => "❌ No se pudo eliminar"]);
 }
 
+$mensaje = "Se ha eliminado una Rutina.";
+$sqlNotif = "INSERT INTO notificaciones (id_usuario, tipo, mensaje) VALUES (?, 'rutina', ?)";
+$stmtNotif = $conn->prepare($sqlNotif);
+$stmtNotif->bind_param("is", $id_usuario, $mensaje);
+$stmtNotif->execute();
+
+
 $stmt->close();
 $conn->close();

@@ -53,9 +53,9 @@ if (!isset($_SESSION["usuario"])) {
   <!-- Contenido principal -->
     <main class="main-content">
 
-      <div class="d-flex justify-content-between mb-3">
+      <div class="d-flex justify-content-between mb-3 text-bg-primary p-3">
   <span></span>
-  <div id="fecha-actual">📅 Cargando Fecha...</div>
+  <div id="fecha-actual"> Cargando Fecha...</div>
 </div>
 
 
@@ -150,7 +150,7 @@ if (!isset($_SESSION["usuario"])) {
     const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Meses comienzan en 0
     const anio = hoy.getFullYear();
 
-    const fechaFormateada = `📅 ${dia}/${mes}/${anio}`;
+    const fechaFormateada = `Fecha actual:  ${dia}/${mes}/${anio}`;
     const contenedorFecha = document.getElementById("fecha-actual");
     if (contenedorFecha) {
       contenedorFecha.textContent = fechaFormateada;
