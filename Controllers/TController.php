@@ -49,4 +49,3 @@ $stmtNotif->execute();
 
 $stmt->close();
 $conn->close();
-?>

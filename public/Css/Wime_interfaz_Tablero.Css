@@ -6,9 +6,9 @@ body {
   }
   
   .main {
-    max-width: 1000px;
+    width: 26cm;
     margin: auto;
-    padding: 20px;
+
   }
   
   .titulo {

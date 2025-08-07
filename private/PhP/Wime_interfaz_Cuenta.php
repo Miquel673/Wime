@@ -39,6 +39,10 @@ if (!isset($_SESSION["usuario"])) {
 
 
   <script>
+    function toggleSidebar() {
+      document.body.classList.toggle('sidebar-visible');
+    }
+    
   fetch('/Wime/public/HTML/Wime_SideBar.html')
   .then(res => res.text())
   .then(html => {

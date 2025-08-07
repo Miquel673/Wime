@@ -98,7 +98,7 @@ function getColorPorEstado(estado) {
 tarjeta.innerHTML = `
   <div class="card shadow-sm h-100">
     <div class="card-body">
-      <h5 class="card-title titulo-tarea text-white"  style="background-color: blue;">${tarea.titulo}</h5>
+      <h5 class="card-title titulo-tarea text-white bg-${getColorPorPrioridad(tarea.prioridad)}">${tarea.titulo}</h5>
       <p class="card-text"><strong>Prioridad:</strong> ${tarea.prioridad}</p>
       <p class="card-text"><strong>Fecha límite:</strong> ${tarea.fecha_limite}</p>
       <p class="card-text">${tarea.descripcion || "Sin descripción."}</p>
@@ -106,16 +106,16 @@ tarjeta.innerHTML = `
 
 
       <!-- Botón para desplegar -->
-      <button class="btn btn-sm btn-outline-primary w-100 mt-2" data-bs-toggle="collapse" data-bs-target="#opciones-${tarea.IDtarea}">
+      <button class="btn btn-sm btn-outline-dark w-100 mt-2" data-bs-toggle="collapse" data-bs-target="#opciones-${tarea.IDtarea}">
         ▼ Ver opciones
       </button>
 
       <!-- Contenido colapsable -->
 
 
-      <div class="collapse mt-2" id="opciones-${tarea.IDtarea}">
-        <label><strong>Estado:</strong></label>
-        <div class="dropdown mb-2">
+      <div class="collapse mt-2 bg-${getColorPorPrioridad(tarea.prioridad)} px-2 pb-2 rounded" id="opciones-${tarea.IDtarea}">
+        <label class="pb-2"><strong>Estado:</strong></label>
+        <div class="dropdown mb-2x pb-2">
           <button class="btn btn-sm dropdown-toggle text-white bg-${getColorPorEstado(tarea.estado)}" type="button" data-bs-toggle="dropdown">
             ${tarea.estado || "Pendiente"}
           </button>
@@ -128,7 +128,7 @@ tarjeta.innerHTML = `
 
         <div class="d-flex justify-content-between">
           <button class="btn btn-danger btn-sm" onclick="eliminarTarea(${tarea.IDtarea})">Eliminar</button>
-          <a href="/Wime/private/PhP/Wime_interfaz_Modulo_ETareas.php?id=${tarea.IDtarea}" class="btn btn-sm btn-outline-secondary">Editar</a>
+          <a href="/Wime/private/PhP/Wime_interfaz_Modulo_ETareas.php?id=${tarea.IDtarea}" class="btn btn-sm btn-outline-secondary bg-primary text-light">Editar</a>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@ function mostrarRutinas(rutinas) {
     tarjeta.innerHTML = `
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title titulo-tarea bg-primary text-white">${rutina.NombreRutina}</h5>
+          <h5 class="card-title titulo-tarea bg-${getColorPorEstado(rutina.Estado)} text-white">${rutina.NombreRutina}</h5>
           <p class="card-text"><strong>Prioridad:</strong> ${rutina.Prioridad}</p>
           <p class="card-text"><strong>Frecuencia:</strong> ${rutina.Frecuencia}</p>
           <p class="card-text"><strong>Fecha de Asignacion:</strong> ${rutina.FechaAsignacion}</p>
@@ -280,31 +280,30 @@ function eliminarRutina(idRutina) {
 
 //Actualizar estado//
 
-function cambiarEstadoTarea(id, nuevoEstado) {
+function cambiarEstadoTarea(idTarea, nuevoEstado) {
   fetch("/Wime/Controllers/ActEstadoTController.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: `id=${id}&estado=${encodeURIComponent(nuevoEstado)}`
+    body: `id=${encodeURIComponent(idTarea)}&estado=${encodeURIComponent(nuevoEstado)}`
   })
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        location.reload(); // 🔄 Recarga la página tras éxito
+        location.reload(); // ✅ Actualiza tras el éxito
       } else {
-        alert("❌ Error al cambiar el estado.");
+        alert(data.message || "❌ Error al cambiar el estado.");
       }
     })
-    .catch(err => {
-      console.error("❌ Error al cambiar el estado:", err);
-    });
+
 }
+
 
 function cambiarEstadoRutina(idRutina, nuevoEstado) {
   fetch("/Wime/Controllers/ActEstadoRController.php", {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
     body: `id=${idRutina}&estado=${encodeURIComponent(nuevoEstado)}`
   })
   .then(res => res.json())

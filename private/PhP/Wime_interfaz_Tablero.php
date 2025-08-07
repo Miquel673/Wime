@@ -59,7 +59,7 @@ if (!isset($_SESSION["id_usuario"])) {
 </header>
 
 <body>
-  <div class="main">
+  <div class="main mx-auto">
     <h1 class="titulo">Tablero</h1>
     <div class="tabs">
       <div class="tab active" data-tipo="tareas">Tareas</div>
